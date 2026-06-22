@@ -16,6 +16,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
@@ -94,12 +95,13 @@ public class ConverterMachine extends TieredEnergyMachine {
 
     @Override
     public @Nullable UITexture sideTips(Player player, BlockPos pos, BlockState state, Set<GTToolType> toolTypes,
+                                        ItemStack held,
                                         Direction side) {
         if (toolTypes.contains(GTToolType.SOFT_MALLET)) {
             return this.isFeToEu() ? GTGuiTextures.TOOL_SWITCH_CONVERTER_NATIVE :
                     GTGuiTextures.TOOL_SWITCH_CONVERTER_EU;
         }
-        return super.sideTips(player, pos, state, toolTypes, side);
+        return super.sideTips(player, pos, state, toolTypes, held, side);
     }
 
     @Override

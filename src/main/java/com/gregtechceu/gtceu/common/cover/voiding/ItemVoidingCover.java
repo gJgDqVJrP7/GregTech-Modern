@@ -104,8 +104,9 @@ public class ItemVoidingCover extends ConveyorCover implements IControllable {
 
     @Override
     public @Nullable UITexture sideTips(Player player, BlockPos pos, BlockState state, Set<GTToolType> toolTypes,
+                                        ItemStack held,
                                         Direction side) {
-        var superTips = super.sideTips(player, pos, state, toolTypes, side);
+        var superTips = super.sideTips(player, pos, state, toolTypes, held, side);
         if (superTips != null) return superTips;
         if (toolTypes.contains(GTToolType.SOFT_MALLET)) {
             return isWorkingEnabled() ? GTGuiTextures.TOOL_START : GTGuiTextures.TOOL_PAUSE;
