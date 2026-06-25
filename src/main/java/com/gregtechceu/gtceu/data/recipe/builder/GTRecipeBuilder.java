@@ -1190,6 +1190,10 @@ public class GTRecipeBuilder {
         return environmentalHazard(condition, false);
     }
 
+    public GTRecipeBuilder environmentalHazard(Supplier<MedicalCondition> conditionSupplier) {
+        return environmentalHazard(conditionSupplier.get());
+    }
+
     public final GTRecipeBuilder adjacentFluids(Fluid... fluids) {
         return adjacentFluids(false, fluids);
     }
