@@ -61,7 +61,7 @@ public class MachineDefinition implements Supplier<MetaMachineBlock> {
     private Supplier<BlockEntityType<? extends BlockEntity>> blockEntityTypeSupplier;
     @Getter
     @Setter
-    private @NotNull GTRecipeType @NotNull [] recipeTypes;
+    private GTRecipeType [] recipeTypes;
     @Getter
     @Setter
     private int tier;
