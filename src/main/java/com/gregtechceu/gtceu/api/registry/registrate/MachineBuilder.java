@@ -737,7 +737,9 @@ public class MachineBuilder<DEFINITION extends MachineDefinition, TYPE extends M
         definition.setDefaultPaintingColor(paintingColor);
         definition.setRenderXEIPreview(renderMultiblockXEIPreview);
         definition.setRenderWorldPreview(renderMultiblockWorldPreview);
-        GTRegistries.MACHINES.register(definition.getId(), definition);
+
+        this.registrate.generic(definition.getId().getPath(), GTRegistries.Keys.MACHINE, () -> definition).register();
+
         return value = definition;
     }
 
