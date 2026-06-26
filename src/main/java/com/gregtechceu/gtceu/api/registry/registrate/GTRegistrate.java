@@ -20,6 +20,7 @@ import com.gregtechceu.gtceu.api.machine.MetaMachine;
 import com.gregtechceu.gtceu.api.machine.MultiblockMachineDefinition;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeSerializer;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
+import com.gregtechceu.gtceu.api.recipe.category.GTRecipeCategory;
 import com.gregtechceu.gtceu.api.registry.GTRegistries;
 import com.gregtechceu.gtceu.api.registry.registrate.forge.GTFluidBuilder;
 import com.gregtechceu.gtceu.core.mixins.registrate.AbstractRegistrateAccessor;
@@ -61,6 +62,7 @@ import com.tterrag.registrate.util.nullness.NonNullFunction;
 import com.tterrag.registrate.util.nullness.NonNullSupplier;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.IdentityHashMap;
@@ -227,6 +229,11 @@ public class GTRegistrate extends AbstractRegistrate<GTRegistrate> {
 
     // Recipe categories
 
+    public GTRecipeCategory recipeCategory(String categoryName, GTRecipeType recipeType) {
+        var category = new GTRecipeCategory(categoryName, recipeType);
+        this.generic(categoryName, GTRegistries.Keys.RECIPE_CATEGORY, () -> category);
+        return category;
+    }
 
     // Tag prefixes
 

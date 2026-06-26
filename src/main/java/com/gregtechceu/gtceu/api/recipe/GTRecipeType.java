@@ -7,6 +7,7 @@ import com.gregtechceu.gtceu.api.recipe.chance.boost.ChanceBoostFunction;
 import com.gregtechceu.gtceu.api.recipe.gui.GTRecipeTypeUILayout;
 import com.gregtechceu.gtceu.api.recipe.lookup.RecipeAdditionHandler;
 import com.gregtechceu.gtceu.api.recipe.lookup.RecipeDB;
+import com.gregtechceu.gtceu.api.registry.registrate.GTRegistrate;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 import com.gregtechceu.gtceu.data.recipe.builder.GTRecipeBuilder;
 import com.gregtechceu.gtceu.utils.FormattingUtil;
@@ -92,10 +93,11 @@ public class GTRecipeType implements RecipeType<GTRecipe> {
     @Getter
     private GTRecipeTypeUILayout uiLayout;
 
-    public GTRecipeType(ResourceLocation registryName, String group, RecipeType<?>... proxyRecipes) {
+    @ApiStatus.Internal
+    public GTRecipeType(ResourceLocation registryName, GTRegistrate registrate, String group, RecipeType<?>... proxyRecipes) {
         this.registryName = registryName;
         this.group = group;
-        this.category = GTRecipeCategory.registerDefault(this);
+        this.category = registrate.recipeCategory(registryName.getPath(), this);
         recipeBuilder = new GTRecipeBuilder(registryName, this);
         // must be linked to stop json contents from shuffling
         Map<RecipeType<?>, List<GTRecipe>> map = new Object2ObjectLinkedOpenHashMap<>();
