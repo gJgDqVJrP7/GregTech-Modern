@@ -27,6 +27,7 @@ import com.gregtechceu.gtceu.common.data.GTRecipeTypes;
 import com.gregtechceu.gtceu.config.ConfigHolder;
 import com.gregtechceu.gtceu.data.model.builder.MachineModelBuilder;
 
+import lombok.Setter;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
@@ -62,6 +63,7 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 import lombok.experimental.Tolerate;
 import org.apache.commons.lang3.ArrayUtils;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -72,7 +74,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import static com.gregtechceu.gtceu.common.data.models.GTMachineModels.*;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @Accessors(chain = true, fluent = true)
@@ -83,9 +85,12 @@ public class MachineBuilder<DEFINITION extends MachineDefinition, TYPE extends M
     protected final String name;
     protected final BiFunction<BlockBehaviour.Properties, DEFINITION, MetaMachineBlock> blockFactory;
     protected final BiFunction<MetaMachineBlock, Item.Properties, MetaMachineItem> itemFactory;
-    protected final Function<BlockEntityCreationInfo, MetaMachine> blockEntityFactory;
 
-    protected final Function<ResourceLocation, DEFINITION> definition;
+    @Setter(onMethod_ = @ApiStatus.Internal)
+    protected Function<BlockEntityCreationInfo, MetaMachine> blockEntityFactory;
+    @Setter(onMethod_ = @ApiStatus.Internal)
+    protected Function<ResourceLocation, DEFINITION> definition;
+
     @Nullable
     @Getter
     private MachineBuilder.ModelInitializer model = null;
@@ -168,7 +173,7 @@ public class MachineBuilder<DEFINITION extends MachineDefinition, TYPE extends M
         return (TYPE) this;
     }
 
-    public TYPE blockModel(NonNullBiConsumer<DataGenContext<Block, ? extends Block>, GTBlockstateProvider> blockModel) {
+    public TYPE blockModel(@Nullable NonNullBiConsumer<DataGenContext<Block, ? extends Block>, GTBlockstateProvider> blockModel) {
         this.blockModel = blockModel;
         return getThis();
     }
@@ -213,12 +218,12 @@ public class MachineBuilder<DEFINITION extends MachineDefinition, TYPE extends M
         return getThis();
     }
 
-    public TYPE blockBuilder(Consumer<BlockBuilder<? extends Block, ?>> blockBuilder) {
+    public TYPE blockBuilder(@Nullable Consumer<BlockBuilder<? extends Block, ?>> blockBuilder) {
         this.blockBuilder = blockBuilder;
         return getThis();
     }
 
-    public TYPE itemBuilder(Consumer<ItemBuilder<? extends MetaMachineItem, ?>> itemBuilder) {
+    public TYPE itemBuilder(@Nullable Consumer<ItemBuilder<? extends MetaMachineItem, ?>> itemBuilder) {
         this.itemBuilder = itemBuilder;
         return getThis();
     }
@@ -248,7 +253,7 @@ public class MachineBuilder<DEFINITION extends MachineDefinition, TYPE extends M
         return getThis();
     }
 
-    public TYPE tooltipBuilder(BiConsumer<ItemStack, List<Component>> tooltipBuilder) {
+    public TYPE tooltipBuilder(@Nullable BiConsumer<ItemStack, List<Component>> tooltipBuilder) {
         this.tooltipBuilder = tooltipBuilder;
         return getThis();
     }
@@ -288,17 +293,17 @@ public class MachineBuilder<DEFINITION extends MachineDefinition, TYPE extends M
         return getThis();
     }
 
-    public TYPE appearance(Supplier<BlockState> appearance) {
+    public TYPE appearance(@Nullable Supplier<BlockState> appearance) {
         this.appearance = appearance;
         return getThis();
     }
 
-    public TYPE ui(PanelFactory ui) {
+    public TYPE ui(@Nullable PanelFactory ui) {
         this.ui = ui;
         return getThis();
     }
 
-    public TYPE langValue(String langValue) {
+    public TYPE langValue(@Nullable String langValue) {
         this.langValue = langValue;
         return getThis();
     }
@@ -345,7 +350,7 @@ public class MachineBuilder<DEFINITION extends MachineDefinition, TYPE extends M
         }
     }
 
-    public TYPE model(MachineBuilder.ModelInitializer model) {
+    public TYPE model(@Nullable MachineBuilder.ModelInitializer model) {
         this.model = model;
         return getThis();
     }
