@@ -11,8 +11,8 @@ All periodic table elements are present in GT, but some of them don't have any p
     const $IngotProperty = Java.loadClass('com.gregtechceu.gtceu.api.data.chemical.material.properties.IngotProperty');
     const $DustProperty = Java.loadClass('com.gregtechceu.gtceu.api.data.chemical.material.properties.DustProperty');
     const $BlastProperty = Java.loadClass('com.gregtechceu.gtceu.api.data.chemical.material.properties.BlastProperty');
-
-    GTCEuStartupEvents.registry('gtceu:material', event => {
+    
+    StartupEvents.registry('gtceu:material', event => {
 
         // Ingot
         GTMaterials.Zirconium.setProperty(PropertyKey.INGOT, new $IngotProperty());
@@ -35,7 +35,7 @@ const $FluidProperty = Java.loadClass('com.gregtechceu.gtceu.api.data.chemical.m
 const $FluidBuilder = Java.loadClass('com.gregtechceu.gtceu.api.fluids.FluidBuilder');
 const $FluidStorageKeys = Java.loadClass('com.gregtechceu.gtceu.api.fluids.store.FluidStorageKeys');
 
-GTCEuStartupEvents.registry('gtceu:material', event => {
+StartupEvents.registry('gtceu:material', event => {
     addFluid(GTMaterials.Iodine, $FluidStorageKeys.LIQUID); // Can be LIQUID, GAS, PLASMA or MOLTEN
     addFluid(GTMaterials.Oganesson, $FluidStorageKeys.GAS);
 }
@@ -51,7 +51,7 @@ let addFluid = (mat, key) => {
 You can even add an ore to existing materials:
 
 ```js title="ore_property.js"
-    GTCEuStartupEvents.registry('gtceu:material', event => {
+    StartupEvents.materialModification(event => {
 
     const $OreProperty = Java.loadClass('com.gregtechceu.gtceu.api.data.chemical.material.properties.OreProperty');
 
@@ -64,7 +64,7 @@ You can even add an ore to existing materials:
 You can also add flags to existing materials:
 
 ```js title="flags.js"
-    GTCEuStartupEvents.registry('gtceu:material', event => {
+    StartupEvents.materialModification(event => {
 
         GTMaterials.Lead.addFlags(GTMaterialFlags.GENERATE_GEAR); // This is for materials already in GTCEU
         GTMaterials.get('custom_material_name').addFlags(GTMaterialFlags.GENERATE_FOIL); // This only works for materials added by GTCEU addons
@@ -76,7 +76,7 @@ Editing the color of an existing material:
 
 
 ```js title="material_modification.js"
-    GTCEuStartupEvents.materialModification(event => {
+    StartupEvents.materialModification(event => {
         GTMaterials.BismuthBronze.setMaterialARGB(0x82AD92) //(1)
     })
 ```
