@@ -3,6 +3,7 @@ package com.gregtechceu.gtceu.integration.kjs.builders.recipe;
 import com.gregtechceu.gtceu.api.capability.recipe.*;
 import com.gregtechceu.gtceu.api.recipe.GTRecipeType;
 import com.gregtechceu.gtceu.api.recipe.gui.GTRecipeTypeUILayout;
+import com.gregtechceu.gtceu.api.recipe.gui.GTRecipeTypeUILayout;
 import com.gregtechceu.gtceu.api.sound.SoundEntry;
 import com.gregtechceu.gtceu.integration.kjs.GTRegistryInfo;
 
@@ -118,10 +119,9 @@ public class GTRecipeTypeBuilder extends BuilderBase<GTRecipeType> {
         type.maxInputs.putAll(maxInputs);
         type.maxOutputs.putAll(maxOutputs);
         if (this.layout != null) {
-            type.UI(l -> {
-                this.layout.accept(l);
-                return l;
-            });
+            var builder = new GTRecipeTypeUILayout.Builder(type);
+            this.layout.accept(builder);
+            type.setUiLayout(builder.build());
         }
         type.setSound(sound);
         type.setHasResearchSlot(hasResearchSlot);

@@ -3,6 +3,7 @@ package com.gregtechceu.gtceu.integration.kjs;
 import com.gregtechceu.gtceu.GTCEu;
 import com.gregtechceu.gtceu.api.GTCEuAPI;
 import com.gregtechceu.gtceu.api.GTValues;
+import com.gregtechceu.gtceu.api.capability.recipe.IO;
 import com.gregtechceu.gtceu.api.capability.recipe.RecipeCapability;
 import com.gregtechceu.gtceu.api.cosmetics.CapeRegistry;
 import com.gregtechceu.gtceu.api.data.RotationState;
@@ -65,6 +66,7 @@ import com.gregtechceu.gtceu.common.data.models.GTMachineModels;
 import com.gregtechceu.gtceu.common.data.models.GTModels;
 import com.gregtechceu.gtceu.common.item.armor.PowerlessJetpack;
 import com.gregtechceu.gtceu.common.machine.multiblock.primitive.PrimitiveWorkableMachine;
+import com.gregtechceu.gtceu.common.mui.GTGuiTextures;
 import com.gregtechceu.gtceu.core.mixins.IngredientAccessor;
 import com.gregtechceu.gtceu.data.recipe.CraftingComponent;
 import com.gregtechceu.gtceu.data.recipe.GTCraftingComponents;
@@ -328,6 +330,8 @@ public class GregTechKubeJSPlugin extends KubeJSPlugin {
         event.add("GTMachineModels", GTMachineModels.class);
         event.add("GTModelProperties", GTMachineModelProperties.class);
         event.add("GTDynamicRenders", DynamicRenderHelper.class);
+        event.add("GTGuiTextures", GTGuiTextures.class);
+        event.add("IO", IO.class);
 
         // Hazard Related
         event.add("HazardProperty", HazardProperty.class);
